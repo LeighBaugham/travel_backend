@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   resources :passports
   resources :users
 
-  post "/login", to: "users#login"
+  post '/login', to: 'login#login', as: 'login'
+  get '/profile', to: 'users#profile'
   # get "/signup", to: "users#create"
 
 
