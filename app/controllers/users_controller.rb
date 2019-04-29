@@ -11,15 +11,32 @@ class UsersController < ApplicationController
           render json: @user, status: :ok
         end
       
-        def create
-          @user = User.new(user_params)
-          if @user.save
-            render json: @user, status: :created
+        def create 
+        
+          @user = User.create(user_params)
+          if @user
+              # render json: @user, status: :ok
+              token = JWT.encode(@user.id.to_s, 's3cr3t', 'HS512')
+              render json: {token: token, user: @user }, status: :ok
           else
-            render json: { errors: @user.errors.full_messages }, 
-            status: :unprocessible_entity
-          end
-        end
+              render json: {errors: @user.errors.full_messages},
+              status: :unprocessable_entity
+          end 
+      end 
+
+      def profile
+        render json: current_user
+      end
+
+    #   def login
+    #     @user = User.find_by(name: params[:name])
+    #     if @user && @user.authenticate(params[:password])
+    #         token = JWT.encode(@user.id.to_s, 's3cr3t', 'HS512')
+    #         render json: {token: token, user: @user, id: @user.id }, status: :ok
+    #     else 
+    #         render json: {error: "User name or password not valid"}, status: :unauthorized
+    #     end
+    # end
 
         def update
             @user = User.find(params[:id])
