@@ -7,8 +7,8 @@ class ApplicationController < ActionController::API
       
       user_id = payload['user_id']
       user_id && User.find_by(id: user_id)
-    # rescue JWT::DecodeError
-    #   nil
+     rescue JWT::DecodeError
+       nil
     end
   
     def authenticate!
