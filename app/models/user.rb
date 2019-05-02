@@ -7,4 +7,16 @@ class User < ApplicationRecord
     validates :name, presence: true
     validates :password, presence: true
 
+    def to_custom_json
+        {
+            name: self.name, 
+            image_url: self.image_url,
+            email: self.email,
+            phone: self.phone,
+            location: self.location,
+            id: self.id
+
+        }
+    end
+
 end

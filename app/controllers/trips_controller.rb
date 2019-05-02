@@ -30,6 +30,12 @@ class TripsController < ApplicationController
             @trip.destroy
             render json: @trip, status: :ok
         end 
+
+        def mytrips
+          @user = current_user
+          @trips = Trip.all.select {|t| t.user_id == @user.id}
+          render json: @trips, status: :ok
+        end 
       
         private
       

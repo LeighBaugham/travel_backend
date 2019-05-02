@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       end 
 
       def profile
-        render json: current_user
+        render json: current_user.to_custom_json
       end
 
     #   def login
