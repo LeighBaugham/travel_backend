@@ -28,7 +28,7 @@ class TripsController < ApplicationController
         def destroy
             @trip = Trip.find(params[:id])
             @trip.destroy
-            render json: item, status: :ok
+            render json: @trip, status: :ok
         end 
       
         private
