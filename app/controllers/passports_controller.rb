@@ -29,6 +29,13 @@ class PassportsController < ApplicationController
           @passport = Passport.find(params[:id])
           @passport.destroy
       end 
+
+      def mypassports
+        @user = current_user
+        # @passports = Passport.all.select {|p| p.user_id == @user.id}
+        @passports= @user.passports.collect(&:trip_id).collect { |id| Trip.find(id) }
+        render json: @passports, status: :ok
+      end
     
       private
     
